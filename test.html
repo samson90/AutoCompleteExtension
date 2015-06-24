@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+</head>
+<body>
+	<input type='text'/>
+	<textarea></textarea>
+	<div id='output'>
+	</div>
+	<script>
+		function predictWords(evt){
+			var output = document.getElementById('output');
+			if (evt.keyCode == 32) // space bar was pressed.
+				output.innerHTML = this.value;
+			else if (evt.keyCode == 8)
+			{ // user pressed the back space.
+				// remove that last character from the input.
+				var output_value = this.value.substring(0, this.value.length - 1);
+
+				// show all the text from before the last space
+				var n = output_value.lastIndexOf(' ');
+				output_value = output_value.substring(0, n);
+
+				output.innerHTML = output_value;
+			}
+		}
+		// add the event listener to all textboxes on the page.
+		var inputs = document.getElementsByTagName('input');
+		for (var i = 0; i < inputs.length; i++)
+		{
+			if (inputs[i].type == 'text')
+			{
+				inputs[i].onkeydown = predictWords;
+			}
+		}
+
+		// add the event listener to all textareas on the page.
+		var textareas = document.getElementsByTagName('textarea');
+		for (var i = 0; i < textareas.length; i++)
+		{
+			textareas[i].onkeydown = predictWords;
+		}
+	</script>
+</body>
+</html>
